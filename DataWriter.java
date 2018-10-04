@@ -17,7 +17,7 @@ import java.util.List;
  * */
 public class DataWriter {
 
-    private String fileName = "";
+    private String fileName;
 
     public DataWriter(String fileName) {
         this.fileName = fileName;
@@ -27,7 +27,20 @@ public class DataWriter {
      *
      * @param toDoTaskList input parameter
      */
+    public void writeToFile(List<ToDoTaskList> toDoTaskList) {
 
+        try {
+
+            try (ObjectOutputStream outStream = new ObjectOutputStream(new FileOutputStream(fileName))) {
+                for (ToDoTaskList task : toDoTaskList) {
+                    outStream.writeObject(task);
+                }
+            }
+        } catch (FileNotFoundException nfe) {
+            System.out.print(nfe.getMessage() + "File not found");
+        } catch (IOException ioe) {
+            System.out.print(ioe.getMessage());
+        }
 
     }
 

@@ -1,5 +1,6 @@
 //package tasktracker;
 
+import java.io.*;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
@@ -14,29 +15,33 @@ import java.util.stream.Collectors;
  * @author  Umair
  * @version 2018.09.26
  * */
-public class ToDoTaskCollection {
+public class ToDoTaskCollection implements Serializable {
 
     private final List<ToDoTaskList> taskList;
     private final UserInput userInput;
-    DataWriter dataWriter;
-    DataReader dataReader;
+    FileWriter fileWriter;
+    public String fileName;
 
-    public ToDoTaskCollection() {
+    public ToDoTaskCollection() throws Exception {
         taskList = new ArrayList<>();
         userInput = new UserInput();
-        dataWriter = new DataWriter("Umair.txt");
-        dataReader = new DataReader("Umair.txt");
+        this.readFile("tasktracker/Umair.txt");
+
     }
 
     /**
      * Adds a new Task To the Task List
      */
-    public void addNewTask() {
+    public void addNewTask() throws Exception{
+        fileWriter = new FileWriter("tasktracker/Umair.txt", true);
         String projectName = getInputProjectName();
         String taskName = getInputTaskName();
         Date dueDate = getInputDueDate();
-        ToDoTaskList task = new ToDoTaskList(taskName, dueDate, projectName);
+        ToDoTaskList task = new ToDoTaskList("test", dueDate, projectName, taskName);
         taskList.add(task);
+        // fileWriter.write(task.getProjectName() + "," + task.getTaskName() + ", " + task.getDueDate().toString() + ", " + task.getStatus() + "\n");
+        // fileWriter.close();
+
     }
 
     public List<ToDoTaskList> getTaskList() {
@@ -49,27 +54,35 @@ public class ToDoTaskCollection {
      *
      * @param searchTaskName, to search the Task by Name
      */
-    public void editTask(String searchTaskName) {
+    public ToDoTaskList editTask(String searchTaskName, String newTasName) {
+        ToDoTaskList task = new ToDoTaskList();
         if (taskList != null) {
             Iterator<ToDoTaskList> it = taskList.iterator();
             boolean isUppdated = false;
+
             while (it.hasNext()) {
-                ToDoTaskList task = it.next();
+                task = it.next();
                 if (task.getTaskList().equalsIgnoreCase(searchTaskName)) {
                     String taskName = getInputTaskName();
-                    task.setList(taskName);
+                    task.setList(newTasName);
                     Date date = getInputDueDate();
                     task.setDueDate(date);
                     String projectName = getInputProjectName();
                     task.setProjectName(projectName);
                     isUppdated = true;
+
                 }
             }
             if (isUppdated == false) {
                 System.out.println("Item not found!");
+                return task;
             }
+            return task;
         }
+        return task;
     }
+
+
 
     /**
      * Change the Status of Task
@@ -262,17 +275,23 @@ public class ToDoTaskCollection {
     /**
      * Writes list to the file
      */
-    public void writeFile() {
-        dataWriter.writeToFile(taskList);
+    public void writeFile(String filename) {
+        DataWriter writer  = new DataWriter(filename);
+        writer.writeToFile(taskList);
+
     }
 
     /**
      * reads the TaskList from the file
      */
-    public void readFile() {
-        List<ToDoTaskList> outTaskList = dataReader.readFromFile();
-        outTaskList.forEach((t) -> {
+    public void readFile(String filename) {
+        DataReader reader  = new DataReader(filename);
+
+        System.out.println(filename);
+        List<ToDoTaskList> tasks = reader.readFromFile();
+        tasks.forEach((t) -> {
             taskList.add(t);
+            System.out.println(t);
         });
     }
 

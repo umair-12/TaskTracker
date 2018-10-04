@@ -21,7 +21,7 @@ public class Main {
      * @param args
      * @throws IOException
      */
-    public static void main (String[] args) throws IOException  {
+    public static void main (String[] args) throws Exception  {
         TaskTracker toDoApp = new TaskTracker ();
         toDoApp.MainMenu();
         toDoApp.optionMenu();

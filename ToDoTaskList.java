@@ -1,5 +1,5 @@
 /*
- * 
+ *
  */
 //package tasktracker;
 
@@ -8,35 +8,41 @@ import java.text.SimpleDateFormat;
 import java.util.Date;
 
 /**
- *
- * @author  Umair
+ * @author Umair
  * @version 2018.09.26
- * */
+ */
 public class ToDoTaskList implements Serializable {
 
     private String taskList;
     private Date dueDate;
     private String projectName;
     private boolean isDone;
+    private String taskName;
 
     /**
      * Constructor for class ToDoTaskList
      *
-     * @param List input parameter for taskList
-     * @param project Name of the project 
-     * @param date  the date object that contain the due date of the task
+     * @param List    input parameter for taskList
+     * @param project Name of the project
+     * @param date    the date object that contain the due date of the task
+     * @param taskname input of the taskname.
      */
-    public ToDoTaskList(String List, Date date, String project) {
+    public ToDoTaskList() {
+        this.taskName = "";
+        this.dueDate = new Date();
+        this.projectName = "";
+    }
+
+    public ToDoTaskList(String List, Date date, String project, String taskName) {
 
         this.taskList = List;
         this.dueDate = date;
         this.projectName = project;
+        this.taskName = taskName;
         this.isDone = false;
-
     }
 
     /**
-     *
      * @return taskList
      */
     public String getTaskList() {
@@ -44,18 +50,43 @@ public class ToDoTaskList implements Serializable {
     }
 
     /**
-     * 
+     * @return taskName
+     */
+    public String getTaskName() {
+        return this.taskName;
+    }
+
+      public void setTaskName(String taskName) {
+        this.taskName = taskName;
+    }
+
+    /**
      * @return the due date of Task
      */
     public Date getDueDate() {
         return this.dueDate;
     }
+
+    /**
+     * Sets new date to TaskList
+     *
+     * @param date
+     */
+    public void setDueDate(Date date) {
+        this.dueDate = date;
+    }
+
     /**
      * @return the project Name
      */
     public String getProjectName() {
         return this.projectName;
     }
+
+    public void setProjectName(String project) {
+        projectName = project;
+    }
+
     /**
      * @return the status of Task
      */
@@ -70,19 +101,6 @@ public class ToDoTaskList implements Serializable {
      */
     public void setList(String list) {
         this.taskList = list;
-    }
-
-    /**
-     * Sets new date to TaskList
-     *
-     * @param date
-     */
-    public void setDueDate(Date date) {
-        this.dueDate = date;
-    }
-
-    public void setProjectName(String project) {
-        projectName = project;
     }
 
     public void setStatusDone() {
@@ -116,7 +134,7 @@ public class ToDoTaskList implements Serializable {
      */
     public String toString() {
 
-        return String.format("%-30s%-30s%-20s%-20s", "Project Name: " + projectName, "Task List: " + taskList, "DueDate: "
+        return String.format("%-30s%-30s%-20s%-20s", "Project Name: " + projectName, "Task Name: " + taskName, "DueDate: "
                 + formatOutputDate(), " Status:  " + printStatus());
     }
 

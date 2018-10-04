@@ -6,10 +6,7 @@
  */
 //package tasktracker;
 
-import java.io.IOException;
-import java.io.FileInputStream;
-import java.io.FileNotFoundException;
-import java.io.ObjectInputStream;
+import java.io.*;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -37,7 +34,31 @@ public class DataReader {
     public List<ToDoTaskList> readFromFile() {
 
         List<ToDoTaskList> taskList = new ArrayList<>();
+        ToDoTaskList task;
+
+        try {
+            ObjectInputStream inputStream = new ObjectInputStream(new FileInputStream("tasktracker/Umair.txt"));
 
 
+
+            while ((task = (ToDoTaskList) inputStream.readObject()) != null) {
+
+                System.out.println(task.getProjectName());
+                taskList.add(task);
+                //ToDoTaskList task = (ToDoTaskList) inputStream.readObject();
+            }
+            inputStream.close();
+
+
+        } catch (FileNotFoundException ef) {
+            System.out.print(ef.getMessage() + "File not found");
+        } catch (IOException e) {
+            System.out.print("");
+        } catch (ClassNotFoundException e) {
+            System.out.print(e.getMessage() + "class not found");
+        }
+
+        return taskList;
+    }
 
 }

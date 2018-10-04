@@ -11,10 +11,12 @@ public class TaskTracker {
 
     ToDoTaskCollection taskCollection;
     Scanner scanner;
+    private String fileOut;
 
-    public TaskTracker() {
+    public TaskTracker() throws Exception{
         scanner = new Scanner(System.in);
         taskCollection = new ToDoTaskCollection();
+        fileOut = "tasktracker/Umair.txt";
     }
 
  /**
@@ -53,7 +55,7 @@ public class TaskTracker {
     /**
      * @ optionMenu takes the options from User
      */
-    public void optionMenu() {
+    public void optionMenu() throws Exception{
         Boolean exit = false;
         while (!exit) {
             WelcomeMenu();
@@ -76,7 +78,7 @@ public class TaskTracker {
                     removeTask();
                     break;
                 case "0":
-                    taskCollection.writeFile();
+                    taskCollection.writeFile(fileOut);
                     System.out.println(" Tasks are Saved: Exiting the System");
 
                     exit = true;
@@ -132,13 +134,17 @@ public class TaskTracker {
             case 1:
                 printTaskList();
                 String searchTitle = readString("To Edit the Task List, Please enter the desired task Name");
-                taskCollection.editTask(searchTitle);
+                String newTitle = readString("new task Name: ");
+                taskCollection.editTask(searchTitle, newTitle);
+                //taskCollection.writeFile();
+                //Edit task name
                 break;
 
             case 2:
                 printTaskList();
                 String searchStatus = readString("To change status of Task, Please enter the Task Name");
                 taskCollection.markAsDone(searchStatus);
+                //Edit task Done
                 break;
             default:
                 System.out.print("Please enter the correct Task name.");
