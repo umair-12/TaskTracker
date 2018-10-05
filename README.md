@@ -1,7 +1,7 @@
 # TaskTracker
 SDA4 project
 
-@author  Muhammad UmIR
+@author  Muhammad Umair
 @version 2018.10.05
 
  The version 2018.10.05 is modified version of the TaskTracker Application,
