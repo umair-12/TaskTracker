@@ -10,3 +10,5 @@ SDA4 project
 
 
 Please read the User Manual before you use this application.
+
+[User-Manual](User-Manual.md)
