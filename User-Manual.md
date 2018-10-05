@@ -21,7 +21,7 @@ Currently TaskTracker Application support following features
 Installing TaskTracker
 
 TaskTracker can be installed by downloding code from github repository.
-To run the application,  java 8 or later version is required.
+To run the application,  java 10 or later version is required.
 
 Using TaskTracker
 
