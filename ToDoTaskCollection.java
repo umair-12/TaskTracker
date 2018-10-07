@@ -11,10 +11,9 @@ import java.util.List;
 import java.util.stream.Collectors;
 
 /**
- *
- * @author  Umair
+ * @author Umair
  * @version 2018.09.26
- * */
+ */
 public class ToDoTaskCollection implements Serializable {
 
     private final List<ToDoTaskList> taskList;
@@ -32,12 +31,12 @@ public class ToDoTaskCollection implements Serializable {
     /**
      * Adds a new Task To the Task List
      */
-    public void addNewTask() throws Exception{
+    public void addNewTask() throws Exception {
         fileWriter = new FileWriter("tasktracker/Umair.txt", true);
         String projectName = getInputProjectName();
         String taskName = getInputTaskName();
         Date dueDate = getInputDueDate();
-        ToDoTaskList task = new ToDoTaskList("test", dueDate, projectName, taskName);
+        ToDoTaskList task = new ToDoTaskList(taskName, dueDate, projectName);
         taskList.add(task);
         // fileWriter.write(task.getProjectName() + "," + task.getTaskName() + ", " + task.getDueDate().toString() + ", " + task.getStatus() + "\n");
         // fileWriter.close();
@@ -55,7 +54,7 @@ public class ToDoTaskCollection implements Serializable {
      * @param searchTaskName, to search the Task by Name
      */
     public ToDoTaskList editTask(String searchTaskName, String newTasName) {
-        ToDoTaskList task = new ToDoTaskList();
+        ToDoTaskList task = null;
         if (taskList != null) {
             Iterator<ToDoTaskList> it = taskList.iterator();
             boolean isUppdated = false;
@@ -81,8 +80,6 @@ public class ToDoTaskCollection implements Serializable {
         }
         return task;
     }
-
-
 
     /**
      * Change the Status of Task
@@ -221,7 +218,7 @@ public class ToDoTaskCollection implements Serializable {
     /**
      * Sorts the tasks according to the due date and returns the list
      *
-     * @return  ArrayList
+     * @return ArrayList
      */
     public List<ToDoTaskList> sortByDate() {
         return taskList.stream()
@@ -276,7 +273,7 @@ public class ToDoTaskCollection implements Serializable {
      * Writes list to the file
      */
     public void writeFile(String filename) {
-        DataWriter writer  = new DataWriter(filename);
+        DataWriter writer = new DataWriter(filename);
         writer.writeToFile(taskList);
 
     }
@@ -285,7 +282,7 @@ public class ToDoTaskCollection implements Serializable {
      * reads the TaskList from the file
      */
     public void readFile(String filename) {
-        DataReader reader  = new DataReader(filename);
+        DataReader reader = new DataReader(filename);
 
         System.out.println(filename);
         List<ToDoTaskList> tasks = reader.readFromFile();

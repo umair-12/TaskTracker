@@ -17,7 +17,6 @@ public class ToDoTaskList implements Serializable {
     private Date dueDate;
     private String projectName;
     private boolean isDone;
-    private String taskName;
 
     /**
      * Constructor for class ToDoTaskList
@@ -25,20 +24,18 @@ public class ToDoTaskList implements Serializable {
      * @param List    input parameter for taskList
      * @param project Name of the project
      * @param date    the date object that contain the due date of the task
-     * @param taskname input of the taskname.
      */
     public ToDoTaskList() {
-        this.taskName = "";
+        this.taskList = "";
         this.dueDate = new Date();
         this.projectName = "";
     }
 
-    public ToDoTaskList(String List, Date date, String project, String taskName) {
+    public ToDoTaskList(String List, Date date, String project) {
 
         this.taskList = List;
         this.dueDate = date;
         this.projectName = project;
-        this.taskName = taskName;
         this.isDone = false;
     }
 
@@ -47,17 +44,6 @@ public class ToDoTaskList implements Serializable {
      */
     public String getTaskList() {
         return this.taskList;
-    }
-
-    /**
-     * @return taskName
-     */
-    public String getTaskName() {
-        return this.taskName;
-    }
-
-      public void setTaskName(String taskName) {
-        this.taskName = taskName;
     }
 
     /**
@@ -134,7 +120,7 @@ public class ToDoTaskList implements Serializable {
      */
     public String toString() {
 
-        return String.format("%-30s%-30s%-20s%-20s", "Project Name: " + projectName, "Task Name: " + taskName, "DueDate: "
+        return String.format("%-30s%-30s%-20s%-20s", "Project Name: " + projectName, "Task List: " + taskList, "DueDate: "
                 + formatOutputDate(), " Status:  " + printStatus());
     }
 
