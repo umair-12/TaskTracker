@@ -123,7 +123,7 @@ public class TaskTracker {
  */
     private void editTask() {
         System.out.println("**************************'");
-        System.out.println("Enter (1) to Edit the Task List.");
+        System.out.println("Enter (1) to Edit the Task Name.");
         System.out.println("'");
         System.out.println("Enter (2) to Mark the Task as done.");
         System.out.println("**************************'");
@@ -135,7 +135,7 @@ public class TaskTracker {
                 printTaskList();
                 String searchTitle = readString("To Edit the Task List, Please enter the desired task Name");
                 String newTitle = readString("new task Name: ");
-                taskCollection.editTask(searchTitle, newTitle);
+                ToDoTaskList newUpdatedTask = taskCollection.editTask(searchTitle, newTitle);
                 //taskCollection.writeFile();
                 //Edit task name
                 break;

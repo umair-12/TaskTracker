@@ -43,7 +43,7 @@ public class DataReader {
 
             while ((task = (ToDoTaskList) inputStream.readObject()) != null) {
 
-                System.out.println(task.getProjectName());
+                //System.out.println(task.getProjectName());
                 taskList.add(task);
                 //ToDoTaskList task = (ToDoTaskList) inputStream.readObject();
             }
